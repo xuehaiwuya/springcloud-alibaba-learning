@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProviderController {
 
     @GetMapping(value = "/query")
-    public String query(String message) {
-        return message;
+    public String query() {
+        return "provider success";
     }
 }

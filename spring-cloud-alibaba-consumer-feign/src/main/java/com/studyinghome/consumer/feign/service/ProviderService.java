@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author leslie (https://studyinghome.com)
  * @date 2021/06/02
  */
-@FeignClient(value = "consumer", fallback = ProviderServiceFallback.class)
+@FeignClient(value = "provider", fallback = ProviderServiceFallback.class)
 public interface ProviderService {
 
     /**
