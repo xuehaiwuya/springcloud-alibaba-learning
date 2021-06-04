@@ -16,11 +16,31 @@ public class ProviderService {
     private SenderService senderService;
 
 
+    /**
+     * 发送字符串消息
+     *
+     * @param msg
+     */
     public void send(String msg) {
-        try {
-            senderService.send(msg);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        senderService.send(msg);
     }
+
+    /**
+     * 发送带tag字符串消息
+     *
+     * @param msg
+     */
+    public void sendWithTags(String msg) {
+        senderService.sendWithTags(msg, "strTag");
+    }
+
+    /**
+     * 发送Object对象消息
+     *
+     * @param foo
+     */
+    public void sendObject(Foo foo) {
+        senderService.sendObject(foo, "objTag");
+    }
+
 }

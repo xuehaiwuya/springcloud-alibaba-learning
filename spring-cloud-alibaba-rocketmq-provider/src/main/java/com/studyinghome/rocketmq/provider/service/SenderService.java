@@ -23,34 +23,34 @@ public class SenderService {
     @Autowired
     private MySource source;
 
-    public void send(String msg) throws Exception {
+    public void send(String msg) {
         source.output1().send(MessageBuilder.withPayload(msg).build());
     }
 
-    public <T> void sendTimeout(T msg, Long timeout, String tag) throws Exception {
-        Message message = MessageBuilder.createMessage(msg,
+    public <T> void sendTimeout(T msg, Long timeout, String tag) {
+        Message<T> message = MessageBuilder.createMessage(msg,
                 new MessageHeaders(Stream.of(tag)
                         .collect(Collectors.toMap(str -> MessageConst.PROPERTY_TAGS, String::toString))));
         source.output1().send(message, timeout);
     }
 
-    public <T> void sendWithTags(T msg, String tag) throws Exception {
-        Message message = MessageBuilder.createMessage(msg,
-                new MessageHeaders(Stream.of(tag)
-                        .collect(Collectors.toMap(str -> MessageConst.PROPERTY_TAGS, String::toString))));
-        source.output1().send(message);
-    }
-
-    public <T> void sendObject(T msg, String tag) throws Exception {
-        Message message = MessageBuilder.withPayload(msg)
-                .setHeader(MessageConst.PROPERTY_TAGS, tag)
-                .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
+    public void sendWithTags(String msg, String tag) {
+        Message<String> message = MessageBuilder.withPayload(msg)
+                .setHeader(RocketMQHeaders.TAGS, tag)
                 .build();
         source.output1().send(message);
     }
 
-    public <T> void sendTransactionalMsg(T msg, int num) throws Exception {
-        MessageBuilder builder = MessageBuilder.withPayload(msg)
+    public <T> void sendObject(T msg, String tag) {
+        Message<T> message = MessageBuilder.withPayload(msg)
+                .setHeader(RocketMQHeaders.TAGS, tag)
+                .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
+                .build();
+        source.output2().send(message);
+    }
+
+    public <T> void sendTransactionalMsg(T msg, int num) {
+        MessageBuilder<T> builder = MessageBuilder.withPayload(msg)
                 .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON);
         builder.setHeader("test", String.valueOf(num));
         builder.setHeader(RocketMQHeaders.TAGS, "binder");

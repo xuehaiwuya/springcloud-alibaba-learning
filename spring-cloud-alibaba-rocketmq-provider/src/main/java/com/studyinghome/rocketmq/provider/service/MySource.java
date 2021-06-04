@@ -14,7 +14,4 @@ public interface MySource {
 
     @Output("output2")
     MessageChannel output2();
-
-    @Output("output3")
-    MessageChannel output3();
 }

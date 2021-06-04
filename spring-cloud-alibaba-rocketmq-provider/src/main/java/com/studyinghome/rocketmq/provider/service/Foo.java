@@ -10,8 +10,8 @@ import lombok.ToString;
  * @date 2021/06/04
  */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class Foo {
     private int id;
