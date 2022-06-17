@@ -28,7 +28,7 @@
         <spring-cloud-alibaba.version>2.2.0.RELEASE</spring-cloud-alibaba.version>
         <spring-cloud-stream.version>Horsham.SR3</spring-cloud-stream.version>
         <nacos.version>2.2.5.RELEASE</nacos.version>
-        <fastjson.version>1.2.68</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
 
     </properties>
 
